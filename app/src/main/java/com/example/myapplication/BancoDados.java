@@ -1,7 +1,6 @@
 package com.example.myapplication;
 
 import android.content.ContentValues;
-import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
@@ -74,7 +73,7 @@ public class BancoDados extends SQLiteOpenHelper {
             cursor.moveToFirst();
         }
 
-        Lembrete lembrete = new Lembrete(Integer.parseInt(cursor.getString(0)),
+        Lembrete lembrete = new Lembrete(cursor.getString(0),
                 cursor.getString(1), cursor.getString(2));
 
         return lembrete;

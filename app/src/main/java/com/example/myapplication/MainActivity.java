@@ -1,7 +1,5 @@
 package com.example.myapplication;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -12,7 +10,12 @@ import android.widget.EditText;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import androidx.appcompat.app.AppCompatActivity;
+
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import static android.widget.Toast.makeText;
@@ -73,18 +76,24 @@ public class MainActivity extends AppCompatActivity {
                 if (nome.isEmpty()) {
 
                 } else if (codigo.isEmpty()) {
+                    // Aqui o problema é que Lembrete está recebendo um inteiro e você tenta passar uma String
+
+
                     db.addLembrete(new Lembrete(nome, data, descricao));
-                    Toast.makeText()
-                    makeText(MainActivity.this, "Salvo com sucesso", Toast.LENGTH_LONG).show();
+//                    Toast.makeText() Você duplicou o comando.
+                    Toast.makeText(MainActivity.this, "Salvo com sucesso", Toast.LENGTH_LONG).show();
 
                     limpacampo();
                     listarLembretes();
 
                 } else {
+                    // Mudanças aqui
+//                    SimpleDateFormat stf = new SimpleDateFormat(data);
 
-                    db.atualizalembrete(new Lembrete(Integer.parseInt(codigo), nome, (Integer.parseInt(data), descricao));
-                    Toast.makeText()
-                    makeText(MainActivity.this, "Atualizado com sucesso", Toast.LENGTH_LONG).show();
+//                        Date d = stf.parse(String.valueOf(stf));
+//                        Log.e("FGV", d.toString());
+                    db.atualizalembrete(new Lembrete(Integer.parseInt(codigo), nome, data, descricao));
+                    Toast.makeText(MainActivity.this, "Atualizado com sucesso", Toast.LENGTH_LONG).show();
                     limpacampo();
                     listarLembretes();
 
@@ -101,15 +110,13 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View v) {
                 String codigo = editCodigo.getText().toString();
                 if (codigo.isEmpty()) {
-                    Toast.makeText()
-                    makeText(MainActivity.this, "Nenhum lembrete selecionado", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Nenhum lembrete selecionado", Toast.LENGTH_LONG).show();
                 } else {
                     Lembrete lembrete = new Lembrete();
                     lembrete.setCodigo(Integer.parseInt(codigo));
                     db.apagarlembrete(lembrete);
 
-                    Toast.makeText()
-                    makeText(MainActivity.this, "Excluido com sucesso", Toast.LENGTH_LONG).show();
+                    Toast.makeText(MainActivity.this, "Excluido com sucesso", Toast.LENGTH_LONG).show();
                     limpacampo();
                     listarLembretes();
                 }
@@ -117,10 +124,25 @@ public class MainActivity extends AppCompatActivity {
         });
 
 
-        Lembrete lembrete = db.selecionarlembrete(0);
+//        Lembrete lembrete = db.selecionarlembrete(0);
 
-        Log.d("Lembrete selecionado", "Codigo: " + lembrete.getCodigo() + " Nome:" + lembrete.getNome()
-                + " Data:" + lembrete.getData() + "Descrição: " + lembrete.getDescricao());
+//        Log.d("Lembrete selecionado", "Codigo: " + lembrete.getCodigo() + " Nome:" + lembrete.getNome()
+//                + " Data:" + lembrete.getData() + "Descrição: " + lembrete.getDescricao());
+
+    }
+
+    private Date convertToDate(String data) {
+        SimpleDateFormat stf = new SimpleDateFormat(data);
+        Date d = new Date();
+        try {
+            d = stf.parse(String.valueOf(stf));
+            return d;
+        } catch (ParseException e) {
+            Log.e("FGV", "Falha ao converter string to Date");
+            e.printStackTrace();
+
+        }
+        return d;
 
     }
 

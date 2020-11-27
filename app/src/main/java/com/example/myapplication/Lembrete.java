@@ -1,29 +1,30 @@
 package com.example.myapplication;
 
-import java.util.Date;
-
 public class Lembrete {
 
     int codigo;
     String nome;
-    Date data;
+    String data;
     String descricao;
 
     public Lembrete() {
 
     }
 
-    public Lembrete(int _codigo, String _nome, Date _data, String _descricao) {
+    public Lembrete(int _codigo, String _nome, String _data, String _descricao) {
         this.codigo = _codigo;
         this.nome = _nome;
         this.data = _data;
         this.descricao = _descricao;
     }
 
-    public Lembrete(int _nome, String _data, String _descricao) {
-        this.nome = nome;
-        this.data = data;
-        this.descricao = descricao;
+//    public Lembrete(int _nome, String _data, String _descricao) {
+
+    public Lembrete(String _nome, String _data, String _descricao) {
+        // Aqui você precisa usar os parâmetros da função.
+        this.nome = _nome;
+        this.data = _data;
+        this.descricao = _descricao;
 
     }
 
@@ -43,11 +44,11 @@ public class Lembrete {
         this.nome = nome;
     }
 
-    public Date getData() {
+    public String getData() {
         return data;
     }
 
-    public void setData(Date data) {
+    public void setData(String data) {
         this.data = data;
     }
 
